@@ -11,4 +11,4 @@
 
 1. [分词器下载](https://github.com/infinilabs/analysis-ik)
 2. 复制到 /usr/share/elasticsearch/plugins 目录下，重启 es
-3. 查看 es 插件列表
+3. 查看 es 插件列表 bin/elasticsearch-plugin list
