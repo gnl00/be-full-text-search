@@ -1,5 +1,6 @@
-package com.fts.jpa.entity;
+package com.fts.jpa.entity.poetry;
 
+import com.fts.jpa.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

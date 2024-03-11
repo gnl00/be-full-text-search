@@ -1,6 +1,6 @@
-package com.fts.jpa.repository;
+package com.fts.jpa.repository.poetry;
 
-import com.fts.jpa.entity.SongCi;
+import com.fts.jpa.entity.poetry.SongCi;
 import org.springframework.stereotype.Repository;
 
 @Repository

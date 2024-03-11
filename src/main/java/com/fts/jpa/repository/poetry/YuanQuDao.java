@@ -1,6 +1,6 @@
-package com.fts.jpa.repository;
+package com.fts.jpa.repository.poetry;
 
-import com.fts.jpa.entity.YuanQu;
+import com.fts.jpa.entity.poetry.YuanQu;
 import org.springframework.stereotype.Repository;
 
 @Repository

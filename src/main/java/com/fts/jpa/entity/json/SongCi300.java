@@ -1,7 +1,7 @@
 package com.fts.jpa.entity.json;
 
 import com.fts.jpa.entity.BaseEntity;
-import com.fts.jpa.entity.BasePoetry;
+import com.fts.jpa.entity.poetry.BasePoetry;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -1,6 +1,6 @@
-package com.fts.jpa.repository;
+package com.fts.jpa.repository.poetry;
 
-import com.fts.jpa.entity.TangShi;
+import com.fts.jpa.entity.poetry.TangShi;
 import org.springframework.stereotype.Repository;
 
 @Repository

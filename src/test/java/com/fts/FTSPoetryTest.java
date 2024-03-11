@@ -2,10 +2,10 @@ package com.fts;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.fts.jpa.entity.*;
-import com.fts.jpa.repository.*;
 import com.fts.jpa.entity.json.AuthorShi;
 import com.fts.jpa.entity.json.YuanQuJson;
+import com.fts.jpa.entity.poetry.*;
+import com.fts.jpa.repository.poetry.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.*;
 
 @SpringBootTest
 @Slf4j
-public class FTSMainAppTest {
+public class FTSPoetryTest {
 
     @Autowired
     private TangShiDao tangShiDao;
@@ -28,7 +28,7 @@ public class FTSMainAppTest {
     private SongCiDao songCiDao;
 
     @Autowired
-    private AuthorDao authorDao;
+    private PoetryAuthorDao poetryAuthorDao;
 
     @Autowired
     private YuanQuDao yuanQuDao;
@@ -171,7 +171,7 @@ public class FTSMainAppTest {
                 authors.add(author);
             }
             yuanQuDao.saveAll(yuanQus);
-            authorDao.saveAll(authors);
+            poetryAuthorDao.saveAll(authors);
             log.info("save {} to db success", filename);
         } catch (FileNotFoundException e) {
             log.error("file: {} not found!, error: {}", filename, e.getClass().getName());
@@ -198,7 +198,7 @@ public class FTSMainAppTest {
                 author.setDescription(as.getDesc());
                 authors.add(author);
             }
-            authorDao.saveAll(authors);
+            poetryAuthorDao.saveAll(authors);
             log.info("save {} to db success", filename);
         } catch (FileNotFoundException e) {
             log.error("file: {} not found!, error: {}", filename, e.getClass().getName());

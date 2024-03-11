@@ -1,4 +1,4 @@
-package com.fts.jpa.repository;
+package com.fts.jpa.repository.poetry;
 
 import com.fts.jpa.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
