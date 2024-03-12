@@ -1,21 +1,43 @@
 package com.fts;
 
 import com.alibaba.fastjson.JSON;
+import com.fts.jpa.entity.novel.AuthorNovel;
 import com.fts.jpa.entity.novel.Novel;
 import com.fts.jpa.entity.json.NovelInfo;
+import com.fts.jpa.entity.novel.NovelChapter;
+import com.fts.jpa.repository.novel.NovelAuthorDao;
+import com.fts.jpa.repository.novel.NovelChapterDao;
+import com.fts.jpa.repository.novel.NovelDao;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+@Slf4j
+@SpringBootTest
 public class FTSNovelTest {
+
+    @Autowired
+    private NovelDao novelDao;
+
+    @Autowired
+    private NovelChapterDao novelChapterDao;
+
+    @Autowired
+    private NovelAuthorDao novelAuthorDao;
 
     @Test
     public void test() {
-        String rootPath = "./novel";
+        String rootPath = "novel";
         File rootDir = new File(rootPath);
         String[] subNovelDir = null;
         if (!rootDir.isDirectory()) return;
@@ -38,25 +60,66 @@ public class FTSNovelTest {
                         System.out.println(novelName);
                         String novelPath = Paths.get(categoryDirPath, novelName).toString();
                         String infoJsonPath = Paths.get(novelPath, "info.json").toString();
-                        NovelInfo novelInfo = parseJson(infoJsonPath);
+                        try {
+                            raf = new RandomAccessFile(infoJsonPath, "r");
+                        } catch (FileNotFoundException e) {
+                            log.info("info file {} not found, skipping", infoJsonPath);
+                            continue;
+                        }
+                        long infoJsonLength = raf.length();
+                        byte[] infoBuffer = new byte[(int)infoJsonLength];
+                        raf.readFully(infoBuffer);
+                        String infoJsonStr = new String(infoBuffer);
+                        NovelInfo novelInfo = parseJson(infoJsonStr);
+                        raf.close();
 
-                        Novel.builder()
-                                .id(generateUUID())
+                        String authorId = generateUUID();
+                        AuthorNovel author = novelInfo.getAuthor();
+                        author.setId(authorId);
+
+                        String novelId = generateUUID();
+                        Novel novel = Novel.builder()
+                                .id(novelId)
                                 .name(novelName)
                                 .category(categoryName)
-                                .author(novelInfo.getAuthor().getName())
+                                .authorId(authorId)
+                                .author(author.getName())
                                 .intro(novelInfo.getIntro())
                                 .catalog(novelInfo.getCatalogues())
                                 .words(novelInfo.getWords())
-                        ;
+                                .build();
 
+
+                        List<NovelChapter> novelChapters = new ArrayList<>();
                         int chapterIndex = 0;
-                        String chapterDir = Paths.get(novelPath, chapterIndex + ".html").toString();
-                        raf = new RandomAccessFile(chapterDir, "r");
-                        long fileSize = raf.length();
-                        byte[] buffer = new byte[(int)fileSize];
-                        raf.readFully(buffer);
-                        String content = new String(buffer);
+                        while (true) {
+                            String chapterDir = Paths.get(novelPath, chapterIndex + ".html").toString();
+                            try {
+                                raf = new RandomAccessFile(chapterDir, "r");
+                            } catch (FileNotFoundException e) {
+                                log.error("file {} not found!", chapterDir);
+                                break;
+                            }
+                            long fileSize = raf.length();
+                            byte[] buffer = new byte[(int)fileSize];
+                            raf.readFully(buffer);
+                            String chapterContent = new String(buffer);
+
+                            NovelChapter novelChapter = NovelChapter.builder()
+                                    .id(generateUUID())
+                                    .novelId(novelId)
+                                    .novelName(novelName)
+                                    .chapter(chapterIndex + "")
+                                    .content(chapterContent)
+                                    .build();
+
+                            novelChapters.add(novelChapter);
+                            chapterIndex++;
+                        }
+
+                        novelDao.save(novel);
+                        novelAuthorDao.save(author);
+                        novelChapterDao.saveAll(novelChapters);
                     }
                 }
             }
@@ -69,9 +132,6 @@ public class FTSNovelTest {
                 throw new RuntimeException(e);
             }
         }
-
-
-
     }
 
     private NovelInfo parseJson(String jsonStr) {

@@ -22,6 +22,7 @@ public class Novel implements BaseEntity {
     private String id;
     private String name;
     private String author;
+    private String authorId;
     private String intro;
     private String catalog;
     private String category;
