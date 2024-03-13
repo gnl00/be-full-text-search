@@ -18,9 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @SpringBootTest
@@ -35,8 +33,10 @@ public class FTSNovelTest {
     @Autowired
     private NovelAuthorDao novelAuthorDao;
 
+    Map<String, String> authorMap = new HashMap<>();
+
     @Test
-    public void test() {
+    public void insert_novel() {
         String rootPath = "novel";
         File rootDir = new File(rootPath);
         String[] subNovelDir = null;
@@ -47,6 +47,7 @@ public class FTSNovelTest {
 
         RandomAccessFile raf = null;
         try {
+            Set<AuthorNovel> authorNovelSet = new HashSet<>();
             for (String categoryName : subNovelDir) {
                 System.out.println("### 分类: " + categoryName);
                 String categoryDirPath = Paths.get(rootPath, categoryName).toString();
@@ -75,7 +76,13 @@ public class FTSNovelTest {
 
                         String authorId = generateUUID();
                         AuthorNovel author = novelInfo.getAuthor();
+                        if (!authorMap.containsKey(author.getName())) {
+                            authorMap.put(author.getName(), authorId);
+                        } else {
+                            authorId  = authorMap.get(author.getName());
+                        }
                         author.setId(authorId);
+                        authorNovelSet.add(author);
 
                         String novelId = generateUUID();
                         Novel novel = Novel.builder()
@@ -88,7 +95,6 @@ public class FTSNovelTest {
                                 .catalog(novelInfo.getCatalogues())
                                 .words(novelInfo.getWords())
                                 .build();
-
 
                         List<NovelChapter> novelChapters = new ArrayList<>();
                         int chapterIndex = 0;
@@ -118,11 +124,11 @@ public class FTSNovelTest {
                         }
 
                         novelDao.save(novel);
-                        novelAuthorDao.save(author);
                         novelChapterDao.saveAll(novelChapters);
                     }
                 }
             }
+            novelAuthorDao.saveAll(authorNovelSet);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {

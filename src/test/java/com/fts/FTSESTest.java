@@ -91,6 +91,11 @@ public class FTSESTest {
     }
 
     @Test
+    public void insert_novel() {
+        // TODO insert novel data from db
+    }
+
+    @Test
     public void splitTask() {
         int totalSize = 250000;
 

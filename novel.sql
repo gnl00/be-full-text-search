@@ -2,18 +2,6 @@ create database
     if not exists novel
     default character set utf8mb4 collate utf8mb4_unicode_ci;
 
-# drop table `novel`;
-# create table if not exists `novel` (
-#     id varchar(30) not null primary key,
-#     name text not null,
-#     author varchar(100) not null,
-#     chapter text not null,
-#     content text not null
-# ) default character set utf8mb4 collate utf8mb4_unicode_ci;
-#
-# create fulltext index idx_chapter_content
-#     on `novel`(chapter,content);
-
 use novel;
 
 drop table if exists `author`;
