@@ -325,9 +325,13 @@ indexing_pressure.memory.limit: 15% # 默认是 heap 内存的 10%，并且 es �
 ```
 
 2、将大任务拆分成多个小任务再执行插入操作
+
 3、还有一个**可能**是修改配置文件中的 `http.max_content_length: 100mb`，因为错误中出现的 107374182 大约是 100mb，可以考虑将它设置大一点
+
 4、使用 ElasticsearchTemplate#batchIndex 或者使用 BulkRequest 发送批量请求（实际上 ElasticsearchTemplate#batchIndex 底层使用的就是 BulkRequest）
 > 一堆命令提交到 ES，那么 ES 执行的顺序和我们提交的顺序是一致的吗？毕竟有些业务场景会对执行命令的顺序有要求。 答案是不一定。
+
+...
 
 在这里使用了第二种方法，具体实现在 `com.fts.FTSESTest.insert_novel` 方法中。
 
