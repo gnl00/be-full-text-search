@@ -9,6 +9,11 @@
 
 > 为了使对比结果更加公正，给 mysql 和 es 分配的硬件资源是一致的。
 
+```shell
+# 如果使用 docker
+docker run ... -m 2G ...
+```
+
 * 启动 MySQL，并执行 `novel.sql` 和 `poetry.sql`，数据导入
 * 启动 elasticsearch，安装 ik，数据导入
 
