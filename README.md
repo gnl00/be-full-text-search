@@ -83,6 +83,16 @@ datasource:
 
 0、收集数据
 
+poetry 目录结构如下
+```shell
+poetry
+├── 宋词
+├──── ...
+├── 全唐诗
+├── 元曲
+├── ...
+```
+
 novel 目录结构如下
 
 ```shell
