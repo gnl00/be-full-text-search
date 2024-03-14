@@ -4,31 +4,29 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-// TODO Index 拆分？
 @Data
-@Document(indexName = "novel", createIndex = false)
+@Document(indexName = "novel_chapter", createIndex = false)
 @Builder
-public class Novel implements Serializable {
+public class NovelChapterIndex implements Serializable {
     @Serial
     private static final long serialVersionUID = -2023545141074109418L;
     @Id
     private Long id;
     private String novelId;
+    @Field(type = FieldType.Text, analyzer = "ik_smart")
     private String novelName;
     private String authorId;
-    private String authorName;
-    private String authorIntro;
-    private String authorDynasty;
+    @Field(type = FieldType.Text, analyzer = "ik_smart")
+    private String catalog;
 
-    private String category; // 类别
-    private String catalog; // 目录
-    private String novelIntro;
-
-    private Integer words;
     private String chapterId;
+    private Integer chapterNo;
+    @Field(type = FieldType.Text, analyzer = "ik_smart")
     private String content;
 }

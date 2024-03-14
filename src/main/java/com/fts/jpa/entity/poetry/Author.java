@@ -4,9 +4,7 @@ import com.fts.jpa.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serial;
 import java.util.Objects;
@@ -16,6 +14,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Author implements BaseEntity {
     @Serial
     private static final long serialVersionUID = -3419390614318681948L;

@@ -13,12 +13,12 @@ spring:
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/poetry?characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true
+      jdbc-url: jdbc:mysql://localhost:3316/poetry?characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true
     novel:
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/novel?characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true
+      jdbc-url: jdbc:mysql://localhost:3316/novel?characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true
   elasticsearch:
     username: elastic
     password: akq2bwUUZu+4s=GuxdXA

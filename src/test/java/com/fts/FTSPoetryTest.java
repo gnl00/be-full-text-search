@@ -182,7 +182,33 @@ public class FTSPoetryTest {
     }
 
     @Test
-    public void insert_shi_author() {
+    public void insert_tang_author() {
+        String filename = "poetry/全唐诗/authors.tang.json";
+        try {
+            String jsonStr = read1(filename);
+            System.out.println("successfully read: " + filename);
+            JSONArray jsonArray = JSON.parseArray(jsonStr);
+            List<AuthorShi> authorShis = jsonArray.toJavaList(AuthorShi.class);
+            List<Author> authors = new ArrayList<>();
+            for (AuthorShi as : authorShis) {
+                Author author = new Author();
+                author.setId(as.getId().substring(0, 8));
+                author.setName(as.getName());
+                author.setDynasty("唐");
+                author.setDescription(as.getDesc());
+                authors.add(author);
+            }
+            poetryAuthorDao.saveAll(authors);
+            log.info("save {} to db success", filename);
+        } catch (FileNotFoundException e) {
+            log.error("file: {} not found!, error: {}", filename, e.getClass().getName());
+        } catch (IOException e) {
+            log.error("file: {} read failed!, error: {}", filename, e.getClass().getName());
+        }
+    }
+
+    @Test
+    public void insert_song_author() {
         String filename = "poetry/全唐诗/authors.song.json";
         try {
             String jsonStr = read1(filename);
@@ -205,8 +231,6 @@ public class FTSPoetryTest {
         } catch (IOException e) {
             log.error("file: {} read failed!, error: {}", filename, e.getClass().getName());
         }
-
-
     }
 
     // RandomAccessFile

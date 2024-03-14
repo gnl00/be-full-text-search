@@ -53,6 +53,13 @@
             <version>8.0.33</version>
         </dependency>
 
+        <!-- 计算 Java 对象内存占用 -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>9.8.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -39,11 +39,11 @@ create table if not exists `novel_chapter` (
     content mediumtext not null
 ) default character set utf8mb4 collate utf8mb4_unicode_ci;
 
-drop index idx_chapter_content on novel_chapter;
+-- drop index idx_chapter_content on novel_chapter;
 create fulltext index idx_chapter_content
     on `novel_chapter`(chapter,content) with parser ngram;
 
-drop index idx_content on novel_chapter;
+-- drop index idx_content on novel_chapter;
 create fulltext index idx_content
     on `novel_chapter`(content) with parser ngram;
 
