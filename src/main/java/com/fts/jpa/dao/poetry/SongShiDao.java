@@ -1,7 +1,7 @@
-package com.fts.jpa.repository.poetry;
+package com.fts.jpa.dao.poetry;
 
 import com.fts.jpa.entity.poetry.SongShi;
-import com.fts.jpa.repository.BaseDao;
+import com.fts.jpa.dao.BaseDao;
 import org.springframework.stereotype.Repository;
 
 @Repository

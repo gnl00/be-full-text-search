@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryNovel",
-        basePackages = {"com.fts.jpa.repository.novel"},
+        basePackages = {"com.fts.jpa.dao.novel"},
         transactionManagerRef = "transactionManagerNovel"
 )
 public class NovelDataSourceConfig {

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.fts.jpa.entity.json.AuthorShi;
 import com.fts.jpa.entity.json.YuanQuJson;
 import com.fts.jpa.entity.poetry.*;
-import com.fts.jpa.repository.poetry.*;
+import com.fts.jpa.dao.poetry.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

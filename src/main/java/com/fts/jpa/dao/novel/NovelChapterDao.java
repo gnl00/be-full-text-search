@@ -1,10 +1,8 @@
-package com.fts.jpa.repository.novel;
+package com.fts.jpa.dao.novel;
 
 import com.fts.jpa.entity.novel.NovelChapter;
-import com.fts.jpa.repository.BaseDao;
+import com.fts.jpa.dao.BaseDao;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface NovelChapterDao extends BaseDao<NovelChapter, String> {

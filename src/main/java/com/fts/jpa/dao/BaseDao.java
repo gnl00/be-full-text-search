@@ -1,4 +1,4 @@
-package com.fts.jpa.repository;
+package com.fts.jpa.dao;
 
 import com.fts.jpa.entity.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

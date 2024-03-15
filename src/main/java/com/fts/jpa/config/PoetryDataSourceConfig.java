@@ -24,7 +24,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryPoetry",
-        basePackages = {"com.fts.jpa.repository.poetry"},
+        basePackages = {"com.fts.jpa.dao.poetry"},
         transactionManagerRef = "transactionManagerPoetry"
 )
 public class PoetryDataSourceConfig {
